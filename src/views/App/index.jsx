@@ -18,41 +18,112 @@ export default function App() {
         message.success(`Success login: welcome back ${user.name}`);
       })
       .catch((err) => {
-        message.error(`Failed login: ${err.message}`);
+        message.error(`Failed login: ${err.message}`, 5);
       });
   };
 
-  // fetch airports
+  // React.useEffect(() => {
+  //   // fetch airporst
+  //   axios
+  //     .get("/api/airports")
+  //     .then(({ data }) => setAirports(data))
+  //     .catch((err) => message.error(`Error: ${err.message}`, 5));
+  //   // fetch flights
+  //   axios
+  //     .get("/api/flights")
+  //     .then(({ data }) => setFlights(data))
+  //     .catch((err) => message.error(`Error: ${err.message}`, 5));
+  // }, []);
+
+  const addToFavorite = (flightId) => {
+    axios
+      .put("/api/favorites", { userId: user.id, flightId })
+      .then((res) => res.data)
+      .thne((user) => {
+        setUser(user);
+        message.success(`Flight added to favorites`);
+      })
+      .catch((err) => {
+        message.error(`Error: ${err.message}`, 5);
+      });
+  };
+
   const airports = [
     { value: "Buenos Aires" },
     { value: "Barcelona" },
     { value: "Londres" },
-    { value: "Bogota" },
+    { value: "Bogotá" },
     { value: "Lima" },
   ];
 
-  // fetch flights
   const flights = [
     {
       id: 1,
       origin: "Buenos Aires",
-      destination: "Bogota",
+      destination: "Bogotá",
+      departure: {
+        day: "monday",
+        hour: "20:00",
+      },
+      arrival: {
+        day: "tuesday",
+        hour: "02:00",
+      },
       code: 1234,
-      duration: "3 hours",
     },
     {
       id: 2,
       origin: "Londres",
       destination: "Lima",
+      departure: {
+        day: "saturday",
+        hour: "10:00",
+      },
+      arrival: {
+        day: "sunday",
+        hour: "05:00",
+      },
       code: 1534,
-      duration: "13 hours",
+    },
+    {
+      id: 3,
+      origin: "Londres",
+      destination: "Lima",
+      departure: {
+        day: "saturday",
+        hour: "10:00",
+      },
+      arrival: {
+        day: "sunday",
+        hour: "05:00",
+      },
+      code: 1534,
+    },
+    {
+      id: 4,
+      origin: "Londres",
+      destination: "Lima",
+      departure: {
+        day: "saturday",
+        hour: "10:00",
+      },
+      arrival: {
+        day: "sunday",
+        hour: "05:00",
+      },
+      code: 1534,
     },
   ];
 
   return (
     <>
       <Header user={user} handleLoginClick={sendLoginRequest} />
-      <Content flights={flights} airports={airports} />
+      <Content
+        user={user}
+        flights={flights}
+        airports={airports}
+        addToFavorite={addToFavorite}
+      />
     </>
   );
 }

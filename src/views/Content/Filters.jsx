@@ -15,16 +15,18 @@ export default function Filter({ options, onSelect }) {
 
   return (
     <section className={s.filters}>
-      <p>Select ORIGIN and DESTINATION.</p>
+      <h3>Where are you going?</h3>
       <Autocomplete
         placeholder="from"
         options={options}
         onSelect={(value) => setOrigin(value)}
+        header="Pick the city of departure"
       />
       <Autocomplete
         placeholder="to"
         options={options}
         onSelect={(value) => setDestination(value)}
+        header="Pick the city of arrival"
       />
     </section>
   );

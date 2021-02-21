@@ -10,7 +10,7 @@ export default function Header({ user, handleLoginClick }) {
   return (
     <header>
       <PageHeader
-        className="site-page-header"
+        className={s.brand}
         avatar={{ icon: <FaPlane /> }}
         title="Aerostates"
         subTitle="Flights and state managment"

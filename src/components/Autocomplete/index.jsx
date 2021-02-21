@@ -8,7 +8,12 @@ const match = (search, options) => {
   });
 };
 
-export default function Autocomplete({ options, placeholder, onSelect }) {
+export default function Autocomplete({
+  options,
+  placeholder,
+  onSelect,
+  header,
+}) {
   const [value, setValue] = React.useState("");
   const [currentOptions, setCurrentOptions] = React.useState([]);
 
@@ -17,7 +22,8 @@ export default function Autocomplete({ options, placeholder, onSelect }) {
   };
 
   return (
-    <>
+    <div>
+      <p>{header}</p>
       <AutoComplete
         value={value}
         options={currentOptions}
@@ -29,6 +35,6 @@ export default function Autocomplete({ options, placeholder, onSelect }) {
         onChange={(data) => setValue(data)}
         placeholder={placeholder}
       />
-    </>
+    </div>
   );
 }

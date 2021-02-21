@@ -6,10 +6,13 @@ header {
   padding: 0 2rem;
 
   .brand {
-    display: flex;
-    align-items: center;
-    h3 {
-      margin: 0 1rem;
+    :global {
+      span.ant-avatar {
+        background-color: #1890ff;
+      }
+    }
+    svg {
+      color: #fff;
     }
   }
 

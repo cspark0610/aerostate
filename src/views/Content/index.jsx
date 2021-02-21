@@ -8,14 +8,15 @@ import { FaSearch } from "react-icons/fa";
 
 import s from "./style.module.scss";
 
-export default function Content({ flights, airports }) {
-  const [filteredFlights, setFilteredFlights] = React.useState(flights);
+export default function Content({ user, flights, airports, addToFavorite }) {
+  const [filteredFlights, setFilteredFlights] = React.useState([]);
   const [filters, setFilters] = React.useState({ origin: "", destination: "" });
 
   // Selecciona los vuelos a mostrar en base a las busquedas aplicadas.
   React.useEffect(() => {
     const { origin, destination } = filters;
     let selection = flights; // El estado inicial son todos los vuelos, se mantiene si no hay filtros
+
     // Aplica los filtros solo si origin y destination estan setteados.
     if (origin && destination) {
       selection = flights.filter(
@@ -31,14 +32,14 @@ export default function Content({ flights, airports }) {
       <section className={s.content}>
         <div className={s.title}>
           <FaSearch />
-          <h2>Search between like 10 different flights or so!</h2>
+          <h2>Search between like 10 different places or so!</h2>
         </div>
 
         <Filters options={airports} onSelect={setFilters} />
 
-        <Grid flights={filteredFlights} />
+        <Grid flights={filteredFlights} addToFavorite={addToFavorite} />
       </section>
-      <Sidebar />
+      <Sidebar user={user} flights={flights} />
     </main>
   );
 }

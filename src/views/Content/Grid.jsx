@@ -1,9 +1,27 @@
 import * as React from "react";
 
-export default function Grid() {
+import Card from "../../components/Card";
+
+import s from "./style.module.scss";
+
+export default function Grid({ flights, addToFavorite }) {
+  // Si no hay vuelos muestro el loading
+  if (!flights.length) {
+    return (
+      <section className={s.grid}>
+        {[1, 2, 3].map((e, i) => (
+          <Card.Loading key={i} />
+        ))}
+      </section>
+    );
+  }
+
+  // Si hay vuelos listo las tarjetas
   return (
-    <>
-      <p>Grid</p>
-    </>
+    <section className={s.grid}>
+      {flights.map((flight) => (
+        <Card key={flight.id} flight={flight} addToFavorite={addToFavorite} />
+      ))}
+    </section>
   );
 }
