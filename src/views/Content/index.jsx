@@ -8,7 +8,13 @@ import { FaSearch } from "react-icons/fa";
 
 import s from "./style.module.scss";
 
-export default function Content({ user, flights, airports, addToFavorite }) {
+export default function Content({
+  user,
+  flights,
+  airports,
+  addToFavorite,
+  removeFromFavorite,
+}) {
   const [filteredFlights, setFilteredFlights] = React.useState([]);
   const [filters, setFilters] = React.useState({ origin: "", destination: "" });
 
@@ -39,7 +45,11 @@ export default function Content({ user, flights, airports, addToFavorite }) {
 
         <Grid flights={filteredFlights} addToFavorite={addToFavorite} />
       </section>
-      <Sidebar user={user} flights={flights} />
+      <Sidebar
+        user={user}
+        flights={flights}
+        removeFromFavorite={removeFromFavorite}
+      />
     </main>
   );
 }

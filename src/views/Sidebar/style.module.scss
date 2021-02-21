@@ -1,5 +1,31 @@
 .sidebar {
   flex-grow: 1;
   margin: 1rem;
-  background-color: lightgreen;
+  background-color: rgb(192, 200, 207);
+  border-radius: 1rem;
+  h2 {
+    margin: 1rem;
+    text-align: center;
+  }
+  .favorite {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem;
+    padding: 0 1rem;
+    height: 5rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    span {
+      display: flex;
+      align-items: center;
+    }
+    p {
+      font-size: 1rem;
+      font-weight: bold;
+      flex-grow: 1;
+      margin: 0 1rem;
+      text-align: center;
+    }
+  }
 }

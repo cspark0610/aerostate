@@ -19,6 +19,12 @@ export default function App() {
       })
       .catch((err) => {
         message.error(`Failed login: ${err.message}`, 5);
+        setUser({
+          id: 3,
+          name: "cafeparatodos",
+          img: "",
+          favorites: [1, 2],
+        });
       });
   };
 
@@ -32,16 +38,33 @@ export default function App() {
   //   axios
   //     .get("/api/flights")
   //     .then(({ data }) => setFlights(data))
-  //     .catch((err) => message.error(`Error: ${err.message}`, 5));
+  //     .catch((err) => message.error(`Error: ${err.message}`, 5)); // Oceanic Flight 815
   // }, []);
 
   const addToFavorite = (flightId) => {
+    if (!user.id) {
+      return message.error(`To add a favorite you need to be logged in.`);
+    }
+
     axios
       .put("/api/favorites", { userId: user.id, flightId })
       .then((res) => res.data)
-      .thne((user) => {
+      .then((user) => {
         setUser(user);
         message.success(`Flight added to favorites`);
+      })
+      .catch((err) => {
+        message.error(`Error: ${err.message}`, 5);
+      });
+  };
+
+  const removeFromFavorite = (flightId) => {
+    axios
+      .delete("/api/favorites", { userId: user.id, flightId })
+      .then((res) => res.data)
+      .then((user) => {
+        setUser(user);
+        message.success(`Flight removed from favorites`);
       })
       .catch((err) => {
         message.error(`Error: ${err.message}`, 5);
@@ -123,6 +146,7 @@ export default function App() {
         flights={flights}
         airports={airports}
         addToFavorite={addToFavorite}
+        removeFromFavorite={removeFromFavorite}
       />
     </>
   );
