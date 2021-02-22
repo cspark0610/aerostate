@@ -67,65 +67,6 @@ export default function App() {
       });
   };
 
-  // const flights = [
-  //   {
-  //     id: 1,
-  //     origin: "Buenos Aires",
-  //     destination: "Bogotá",
-  //     departure: {
-  //       day: "monday",
-  //       hour: "20:00",
-  //     },
-  //     arrival: {
-  //       day: "tuesday",
-  //       hour: "02:00",
-  //     },
-  //     code: 1234,
-  //   },
-  //   {
-  //     id: 2,
-  //     origin: "Londres",
-  //     destination: "Lima",
-  //     departure: {
-  //       day: "saturday",
-  //       hour: "10:00",
-  //     },
-  //     arrival: {
-  //       day: "sunday",
-  //       hour: "05:00",
-  //     },
-  //     code: 1534,
-  //   },
-  //   {
-  //     id: 3,
-  //     origin: "Londres",
-  //     destination: "Lima",
-  //     departure: {
-  //       day: "saturday",
-  //       hour: "10:00",
-  //     },
-  //     arrival: {
-  //       day: "sunday",
-  //       hour: "05:00",
-  //     },
-  //     code: 1534,
-  //   },
-  //   {
-  //     id: 4,
-  //     origin: "Londres",
-  //     destination: "Lima",
-  //     departure: {
-  //       day: "saturday",
-  //       hour: "10:00",
-  //     },
-  //     arrival: {
-  //       day: "sunday",
-  //       hour: "05:00",
-  //     },
-  //     code: 1534,
-  //   },
-  // ];
-  console.log("USER", user);
   return (
     <>
       <Header user={user} handleLoginClick={sendLoginRequest} />

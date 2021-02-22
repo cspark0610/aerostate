@@ -2,7 +2,8 @@ import * as React from "react";
 
 import Item from "../../components/Item";
 
-export default function Sidebar({ favorites, removeFromFavorite }) {
+export default function Sidebar({ user, removeFromFavorite }) {
+  const { favorites } = user;
   if (!favorites.length) return <Item.Empty />;
 
   return (
