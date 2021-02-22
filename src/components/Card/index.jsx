@@ -36,8 +36,8 @@ CardComponent.Loading = function Loading() {
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     const id = setTimeout(() => setLoading(false), 1000);
-    return clearTimeout(id);
-  });
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <Card className={s.card} loading={loading}>
