@@ -27,7 +27,8 @@ export default function Content({
     if (origin && destination) {
       selection = flights.filter(
         (flight) =>
-          flight.origin === origin && flight.destination === destination
+          flight.origin.value === origin &&
+          flight.destination.value === destination
       );
     }
     setFilteredFlights(selection);
@@ -45,11 +46,7 @@ export default function Content({
 
         <Grid flights={filteredFlights} addToFavorite={addToFavorite} />
       </section>
-      <Sidebar
-        user={user}
-        flights={flights}
-        removeFromFavorite={removeFromFavorite}
-      />
+      <Sidebar user={user} removeFromFavorite={removeFromFavorite} />
     </main>
   );
 }

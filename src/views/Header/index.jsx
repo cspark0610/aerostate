@@ -15,7 +15,7 @@ export default function Header({ user, handleLoginClick }) {
         title="Aerostates"
         subTitle="Flights and state managment"
       />
-      {user.id ? (
+      {user._id ? (
         <div className={s.user}>
           <p>Welcome {user.name}!</p>
           <Avatar src={<Image src={user.img} />} />

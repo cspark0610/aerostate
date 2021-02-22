@@ -9,9 +9,7 @@ export default function Grid({ flights, addToFavorite }) {
   if (!flights.length) {
     return (
       <section className={s.grid}>
-        {[1, 2, 3].map((e, i) => (
-          <Card.Loading key={i} />
-        ))}
+        <Card.Loading />
       </section>
     );
   }
@@ -20,7 +18,7 @@ export default function Grid({ flights, addToFavorite }) {
   return (
     <section className={s.grid}>
       {flights.map((flight) => (
-        <Card key={flight.id} flight={flight} addToFavorite={addToFavorite} />
+        <Card key={flight._id} flight={flight} addToFavorite={addToFavorite} />
       ))}
     </section>
   );

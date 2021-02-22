@@ -27,7 +27,11 @@ const setupSeed = async () => {
   const len = airports.length;
   const getHours = () => {
     const date = new Date(faker.date.future());
-    return `${date.getHours()}:${date.getMinutes()}`;
+    let hours = date.getHours();
+    hours = hours < 10 ? "0" + hours : hours;
+    let minutes = date.getMinutes();
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    return `${hours}:${minutes}`;
   };
 
   for (let i = 0; i < 20; i++) {

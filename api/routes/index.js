@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get("/flights", (req, res) => {
   Flights.find({})
+    .populate("origin")
+    .populate("destination")
     .then((flights) => res.send(flights))
     .catch((error) => res.status(500).send(error));
 });
@@ -20,22 +22,46 @@ router.get("/airports", (req, res) => {
 
 router.post("/login", (req, res) => {
   User.findOne({ name: "Tom Hanks" })
-    .populate("favorites")
+    .populate({
+      path: "favorites",
+      populate: { path: "origin destination" },
+    })
     .then((user) => res.send(user))
     .catch((error) => res.status(500).send(error));
 });
 
 router.put("/favorites", (req, res) => {
-  const { userId, flightId } = req.body;
-  User.findOneAndUpdate({ _id: userId }, { $push: { favorites: flightId } })
+  const { userId, flightId } = req.query;
+  User.findOneAndUpdate(
+    { _id: userId },
+    { $push: { favorites: flightId } },
+    { new: true }
+  )
+    .populate({
+      path: "favorites",
+      populate: { path: "origin destination" },
+    })
     .then((user) => res.send(user))
     .catch((error) => res.status(500).send(error));
 });
 
 router.delete("/favorites", (req, res) => {
-  const { userId, flightId } = req.body;
-  User.findOneAndUpdate({ _id: userId }, { $pull: { favorites: flightId } })
-    .then((user) => res.send(user))
+  const { userId, flightId } = req.query;
+  console.log("USER ID", userId);
+  console.log("FLIGHt ID", flightId);
+  User.findOneAndUpdate(
+    { _id: userId },
+    { $pull: { favorites: flightId } },
+    { new: true }
+  )
+    .populate({
+      path: "favorites",
+      populate: { path: "origin destination" },
+    })
+    .then((user) => {
+      console.log("USER", user);
+      res.send(user);
+    })
     .catch((error) => res.status(500).send(error));
 });
 

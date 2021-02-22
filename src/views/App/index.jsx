@@ -8,6 +8,8 @@ import Content from "../Content";
 
 export default function App() {
   const [user, setUser] = React.useState({});
+  const [airports, setAirports] = React.useState([]);
+  const [flights, setFlights] = React.useState([]);
 
   const sendLoginRequest = () => {
     // fetch fake user
@@ -15,39 +17,33 @@ export default function App() {
       .post("/api/login")
       .then(({ data }) => {
         setUser(data);
-        message.success(`Success login: welcome back ${user.name}`);
+        message.success(`Success login: welcome back ${data.name}`);
       })
       .catch((err) => {
         message.error(`Failed login: ${err.message}`, 5);
-        setUser({
-          id: 3,
-          name: "cafeparatodos",
-          img: "",
-          favorites: [1, 2],
-        });
       });
   };
 
-  // React.useEffect(() => {
-  //   // fetch airporst
-  //   axios
-  //     .get("/api/airports")
-  //     .then(({ data }) => setAirports(data))
-  //     .catch((err) => message.error(`Error: ${err.message}`, 5));
-  //   // fetch flights
-  //   axios
-  //     .get("/api/flights")
-  //     .then(({ data }) => setFlights(data))
-  //     .catch((err) => message.error(`Error: ${err.message}`, 5)); // Oceanic Flight 815
-  // }, []);
+  React.useEffect(() => {
+    // fetch airporst
+    axios
+      .get("/api/airports")
+      .then(({ data }) => setAirports(data))
+      .catch((err) => message.error(`Error: ${err.message}`, 5));
+    // fetch flights
+    axios
+      .get("/api/flights")
+      .then(({ data }) => setFlights(data))
+      .catch((err) => message.error(`Error: ${err.message}`, 5)); // Oceanic Flight 815
+  }, []);
 
   const addToFavorite = (flightId) => {
-    if (!user.id) {
+    if (!user._id) {
       return message.error(`To add a favorite you need to be logged in.`);
     }
 
     axios
-      .put("/api/favorites", { userId: user.id, flightId })
+      .put(`/api/favorites?userId=${user._id}&flightId=${flightId}`)
       .then((res) => res.data)
       .then((user) => {
         setUser(user);
@@ -60,7 +56,7 @@ export default function App() {
 
   const removeFromFavorite = (flightId) => {
     axios
-      .delete("/api/favorites", { userId: user.id, flightId })
+      .delete(`/api/favorites?userId=${user._id}&flightId=${flightId}`)
       .then((res) => res.data)
       .then((user) => {
         setUser(user);
@@ -71,73 +67,65 @@ export default function App() {
       });
   };
 
-  const airports = [
-    { value: "Buenos Aires" },
-    { value: "Barcelona" },
-    { value: "Londres" },
-    { value: "Bogotá" },
-    { value: "Lima" },
-  ];
-
-  const flights = [
-    {
-      id: 1,
-      origin: "Buenos Aires",
-      destination: "Bogotá",
-      departure: {
-        day: "monday",
-        hour: "20:00",
-      },
-      arrival: {
-        day: "tuesday",
-        hour: "02:00",
-      },
-      code: 1234,
-    },
-    {
-      id: 2,
-      origin: "Londres",
-      destination: "Lima",
-      departure: {
-        day: "saturday",
-        hour: "10:00",
-      },
-      arrival: {
-        day: "sunday",
-        hour: "05:00",
-      },
-      code: 1534,
-    },
-    {
-      id: 3,
-      origin: "Londres",
-      destination: "Lima",
-      departure: {
-        day: "saturday",
-        hour: "10:00",
-      },
-      arrival: {
-        day: "sunday",
-        hour: "05:00",
-      },
-      code: 1534,
-    },
-    {
-      id: 4,
-      origin: "Londres",
-      destination: "Lima",
-      departure: {
-        day: "saturday",
-        hour: "10:00",
-      },
-      arrival: {
-        day: "sunday",
-        hour: "05:00",
-      },
-      code: 1534,
-    },
-  ];
-
+  // const flights = [
+  //   {
+  //     id: 1,
+  //     origin: "Buenos Aires",
+  //     destination: "Bogotá",
+  //     departure: {
+  //       day: "monday",
+  //       hour: "20:00",
+  //     },
+  //     arrival: {
+  //       day: "tuesday",
+  //       hour: "02:00",
+  //     },
+  //     code: 1234,
+  //   },
+  //   {
+  //     id: 2,
+  //     origin: "Londres",
+  //     destination: "Lima",
+  //     departure: {
+  //       day: "saturday",
+  //       hour: "10:00",
+  //     },
+  //     arrival: {
+  //       day: "sunday",
+  //       hour: "05:00",
+  //     },
+  //     code: 1534,
+  //   },
+  //   {
+  //     id: 3,
+  //     origin: "Londres",
+  //     destination: "Lima",
+  //     departure: {
+  //       day: "saturday",
+  //       hour: "10:00",
+  //     },
+  //     arrival: {
+  //       day: "sunday",
+  //       hour: "05:00",
+  //     },
+  //     code: 1534,
+  //   },
+  //   {
+  //     id: 4,
+  //     origin: "Londres",
+  //     destination: "Lima",
+  //     departure: {
+  //       day: "saturday",
+  //       hour: "10:00",
+  //     },
+  //     arrival: {
+  //       day: "sunday",
+  //       hour: "05:00",
+  //     },
+  //     code: 1534,
+  //   },
+  // ];
+  console.log("USER", user);
   return (
     <>
       <Header user={user} handleLoginClick={sendLoginRequest} />
