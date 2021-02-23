@@ -3,8 +3,14 @@ import * as React from "react";
 import Autocomplete from "../../components/Autocomplete";
 
 import s from "./style.module.scss";
+import { useSelector } from 'react-redux';
 
-export default function Filter({ options, onSelect }) {
+export default function Filter({  onSelect }) {
+
+  
+  const handleOptions = useSelector(state => state.options);
+
+
   const [origin, setOrigin] = React.useState("");
   const [destination, setDestination] = React.useState("");
 
@@ -18,13 +24,13 @@ export default function Filter({ options, onSelect }) {
       <h3>Where are you going?</h3>
       <Autocomplete
         placeholder="from"
-        options={options}
+        options={handleOptions}
         onSelect={(value) => setOrigin(value)}
         header="Pick the city of departure"
       />
       <Autocomplete
         placeholder="to"
-        options={options}
+        options={handleOptions}
         onSelect={(value) => setDestination(value)}
         header="Pick the city of arrival"
       />

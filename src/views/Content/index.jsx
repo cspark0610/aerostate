@@ -3,20 +3,18 @@ import * as React from "react";
 import Grid from "./Grid";
 import Filters from "./Filters";
 import Sidebar from "../Sidebar";
-
 import { FaSearch } from "react-icons/fa";
 
 import s from "./style.module.scss";
+import {useSelector} from 'react-redux';
 
-export default function Content({
-  user,
-  flights,
-  airports,
-  addToFavorite,
-  removeFromFavorite,
-}) {
+export default function Content() {
+
   const [filteredFlights, setFilteredFlights] = React.useState([]);
   const [filters, setFilters] = React.useState({ origin: "", destination: "" });
+  const user = useSelector(state => state.user);
+
+  const flights = useSelector(state => state.flights)
 
   // Selecciona los vuelos a mostrar en base a las busquedas aplicadas.
   React.useEffect(() => {
@@ -42,11 +40,11 @@ export default function Content({
           <h2>Search between like 10 different places or so!</h2>
         </div>
 
-        <Filters options={airports} onSelect={setFilters} />
+        <Filters  onSelect={setFilters} />
 
-        <Grid flights={filteredFlights} addToFavorite={addToFavorite} />
+        <Grid flights={filteredFlights}/>
       </section>
-      <Sidebar user={user} removeFromFavorite={removeFromFavorite} />
+      <Sidebar/>
     </main>
   );
 }

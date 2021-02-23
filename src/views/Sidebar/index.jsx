@@ -4,11 +4,11 @@ import Bookmark from "./Bookmark";
 
 import s from "./style.module.scss";
 
-export default function Sidebar({ user, removeFromFavorite }) {
+export default function Sidebar({ removeFromFavorite }) {
   return (
     <aside className={s.sidebar}>
       <h2>Save flights and keep them in track!</h2>
-      <Bookmark user={user} removeFromFavorite={removeFromFavorite} />
+      <Bookmark removeFromFavorite={removeFromFavorite} />
     </aside>
   );
 }

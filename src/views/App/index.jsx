@@ -5,78 +5,36 @@ import { message } from "antd";
 
 import Header from "../Header";
 import Content from "../Content";
+import { setAirports } from "../../state/airports";
+import { setFlights } from "../../state/flights";
+import { setUser } from "../../state/users";
+import { useDispatch } from 'react-redux'
 
 export default function App() {
-  const [user, setUser] = React.useState({});
-  const [airports, setAirports] = React.useState([]);
-  const [flights, setFlights] = React.useState([]);
 
-  const sendLoginRequest = () => {
-    // fetch fake user
-    axios
-      .post("/api/login")
-      .then(({ data }) => {
-        setUser(data);
-        message.success(`Success login: welcome back ${data.name}`);
-      })
-      .catch((err) => {
-        message.error(`Failed login: ${err.message}`, 5);
-      });
-  };
+  
 
+  const dispatch = useDispatch();
+
+ 
   React.useEffect(() => {
     // fetch airporst
     axios
       .get("/api/airports")
-      .then(({ data }) => setAirports(data))
+      .then(({ data }) => dispatch(setAirports(data)))
       .catch((err) => message.error(`Error: ${err.message}`, 5));
     // fetch flights
     axios
       .get("/api/flights")
-      .then(({ data }) => setFlights(data))
+      .then(({ data }) => dispatch(setFlights(data)))
       .catch((err) => message.error(`Error: ${err.message}`, 5)); // Oceanic Flight 815
   }, []);
 
-  const addToFavorite = (flightId) => {
-    if (!user._id) {
-      return message.error(`To add a favorite you need to be logged in.`);
-    }
-
-    axios
-      .put(`/api/favorites?userId=${user._id}&flightId=${flightId}`)
-      .then((res) => res.data)
-      .then((user) => {
-        setUser(user);
-        message.success(`Flight added to favorites`);
-      })
-      .catch((err) => {
-        message.error(`Error: ${err.message}`, 5);
-      });
-  };
-
-  const removeFromFavorite = (flightId) => {
-    axios
-      .delete(`/api/favorites?userId=${user._id}&flightId=${flightId}`)
-      .then((res) => res.data)
-      .then((user) => {
-        setUser(user);
-        message.success(`Flight removed from favorites`);
-      })
-      .catch((err) => {
-        message.error(`Error: ${err.message}`, 5);
-      });
-  };
 
   return (
     <>
-      <Header user={user} handleLoginClick={sendLoginRequest} />
-      <Content
-        user={user}
-        flights={flights}
-        airports={airports}
-        addToFavorite={addToFavorite}
-        removeFromFavorite={removeFromFavorite}
-      />
+      <Header/>
+      <Content/>
     </>
   );
 }

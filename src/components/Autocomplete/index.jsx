@@ -1,5 +1,6 @@
 import * as React from "react";
 import { AutoComplete } from "antd";
+import { useSelector } from 'react-redux';
 
 const match = (search, options) => {
   // super smart patter matching process
@@ -9,13 +10,15 @@ const match = (search, options) => {
 };
 
 export default function Autocomplete({
-  options,
+  //options,
   placeholder,
   onSelect,
   header,
 }) {
   const [value, setValue] = React.useState("");
   const [currentOptions, setCurrentOptions] = React.useState([]);
+  const options = useSelector(state => state.airports)
+
 
   const onSearch = (searchText) => {
     setCurrentOptions(match(searchText, options));
