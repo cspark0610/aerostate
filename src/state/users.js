@@ -25,9 +25,7 @@ export const addToFavorites = createAsyncThunk("ADD_TO_FAVORITE",(flightId, thun
         .put(`/api/favorites?userId=${user._id}&flightId=${flightId}`)
         .then((res) => res.data)
         
-
-
-})
+});
    
 export const removeFromFavorites = createAsyncThunk(
     "REMOVE_FROM_FAVORITES",
@@ -39,7 +37,6 @@ export const removeFromFavorites = createAsyncThunk(
         .then((res) => res.data);
     }
   );
-
 
 
 export const userReducer = createReducer({ },{

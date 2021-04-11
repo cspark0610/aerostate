@@ -16,7 +16,7 @@ const airportsSlice = createSlice({
   name: 'SET_AIRPORTS',
   initialState : [],
   reducers: {
-      setAirports : (state, action)=> action.payload
+      setAirports : (state, action)=> action.payload,
   }
 })
 

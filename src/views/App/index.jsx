@@ -7,12 +7,11 @@ import Header from "../Header";
 import Content from "../Content";
 import { setAirports } from "../../state/airports";
 import { setFlights } from "../../state/flights";
-import { setUser } from "../../state/users";
+
+//import { setUser } from "../../state/users";
 import { useDispatch } from 'react-redux'
 
 export default function App() {
-
-  
 
   const dispatch = useDispatch();
 
